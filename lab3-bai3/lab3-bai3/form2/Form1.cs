@@ -18,14 +18,16 @@ namespace form2
     public partial class Form1 : Form
     {
 
-        private TcpClient client;
+        private TcpClient client = new TcpClient();
         private NetworkStream stream;
         Thread catchMess;
+        
+        
         
         public Form1()
         {
             InitializeComponent();
-            button2.Visible = false;
+            button2.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -37,14 +39,16 @@ namespace form2
         {
             try
             {
-                client = new TcpClient();
+                
                 IPAddress ipa = IPAddress.Parse("127.0.0.1");
                 IPEndPoint ipe = new IPEndPoint(ipa, 8080);
                 client.Connect(ipe);
                 stream = client.GetStream();
                 button1.Enabled = true;
                 MessageBox.Show("Đã kết nối với server!");
+                button2.Invoke((MethodInvoker)delegate{ button2.Enabled = true; }     );          
                 
+
             }
             catch (Exception ex)
             {
@@ -55,13 +59,10 @@ namespace form2
         private void SendMessage()
         {
             try
-            {
-                
-                
-                    string message = "Hello server!\n";
-                    byte[] buffer = Encoding.UTF8.GetBytes(message);
-                    stream.Write(buffer, 0, buffer.Length);
-                
+            {               
+                string message = "Hello server!\n";
+                byte[] buffer = Encoding.UTF8.GetBytes(message);
+                stream.Write(buffer, 0, buffer.Length);       
             }
             catch (Exception ex)
             {
@@ -73,12 +74,12 @@ namespace form2
         {
             catchMess = new Thread(ConnectToServer);
             catchMess.Start();
-            button2.Visible = true;
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SendMessage();
+            SendMessage(); 
         }
     }
 }
