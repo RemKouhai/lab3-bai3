@@ -21,9 +21,11 @@ namespace form2
         private TcpClient client;
         private NetworkStream stream;
         Thread catchMess;
+        
         public Form1()
         {
             InitializeComponent();
+            button2.Visible = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -71,6 +73,7 @@ namespace form2
         {
             catchMess = new Thread(ConnectToServer);
             catchMess.Start();
+            button2.Visible = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
