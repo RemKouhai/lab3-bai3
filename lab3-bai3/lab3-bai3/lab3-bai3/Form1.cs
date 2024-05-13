@@ -24,7 +24,7 @@ namespace lab3_bai3
 
 
 
-        private Form2 form2;
+        
 
         
 
@@ -34,22 +34,7 @@ namespace lab3_bai3
             
         }
 
-        private void ShowForm2()
-        {
-            if (form2 == null || form2.IsDisposed)
-            {
-                form2 = new Form2();
-            }
-
-            if (form2.Visible)
-            {
-                form2.BringToFront();
-            }
-            else
-            {
-                form2.Show();
-            }
-        }
+       
 
 
 
@@ -133,7 +118,7 @@ namespace lab3_bai3
         {
             if (!isListening && (serverThread == null || !serverThread.IsAlive))
             {
-                ShowForm2();
+               
                 isListening = true;
 
                 textBox1.Text = "Listening\r";
